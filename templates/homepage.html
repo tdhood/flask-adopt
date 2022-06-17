@@ -1,14 +1,17 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-{% for pet in pets %}
+{% extends 'base.html' %} {% block content %} {% for pet in pets %}
 <ul>
-    <div>
-        {{ pet.url_image}}
-        {{ pet.name }} {{ pet.available }}
-    </div>
+  <div>
+    <img
+      src="{{ pet.photo_url}}"
+      alt="{{ pet.name }} the {{ pet.species }} profile picture"
+      width="100px"
+    />
+    {{ pet.name }} {{ pet.available }}
+  </div>
 </ul>
-
+{% endfor %}
+<ul>
+  <li><a href="/add">Add Pet</a></li>
+</ul>
 
 {% endblock %}

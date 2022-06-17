@@ -1,33 +1,24 @@
 """Forms for adopt app."""
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntergerField
+from wtforms import StringField
+from wtforms.validators import InputRequired, Optional, URL, AnyOf
+
 
 class AddPetForm(FlaskForm):
     """form for adding pets"""
 
-    name = StringField("Pet Name")
-    species = StringField("Species")
-    photo_url = StringField("Photo")
-    age = IntergerField("Age")
+    name = StringField("Pet Name", validators=[InputRequired()])
+    species = StringField("Species", validators=[InputRequired(),
+                                                 AnyOf(values=['cat', 'dog', 'porcupine'])])
+    photo_url = StringField("Photo", validators=[Optional(), URL()])
+    age = StringField("Age", validators=[InputRequired(),
+                                          AnyOf(values=['baby', 'young', 'adult', 'senior'])])
     notes = StringField("Notes")
 
 
-<form id="pet-add-form" method="POST">
-    {{ form.hidden_tag() }}
+class EditPetForm(FlaskForm):
+    """for for editing a pet"""
 
-    {% for field in form
-        if field.widget.input_type != 'hidden' %}
-    
-    <p>
-    {{ field.label }}
-    {{ field }} 
-
-    {% for error in field.errors %}
-        {{ error }}
-    {% endfor %}
-    </p>
-
-    {% endfor %}
-
-    <button type="submit">Add</button>
-</form>
+    photo_url = StringField("Photo", validators=[Optional(), URL()])
+    notes = StringField("Notes")
+    available = BooleanField("Available", validators=[InputRequired()])
