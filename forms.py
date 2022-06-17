@@ -12,4 +12,22 @@ class AddPetForm(FlaskForm):
     notes = StringField("Notes")
 
 
-<form id
+<form id="pet-add-form" method="POST">
+    {{ form.hidden_tag() }}
+
+    {% for field in form
+        if field.widget.input_type != 'hidden' %}
+    
+    <p>
+    {{ field.label }}
+    {{ field }} 
+
+    {% for error in field.errors %}
+        {{ error }}
+    {% endfor %}
+    </p>
+
+    {% endfor %}
+
+    <button type="submit">Add</button>
+</form>
