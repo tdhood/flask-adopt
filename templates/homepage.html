@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for pet in pets %}
+<ul>
+    <div>
+        {{ pet.url_image}}
+        {{ pet.name }} {{ pet.available }}
+    </div>
+</ul>
+
+
+{% endblock %}
